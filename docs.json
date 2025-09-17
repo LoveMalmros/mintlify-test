@@ -6,6 +6,10 @@
     "colors": {
         "primary": "#f0fdf4"
     },
+    "appearance": {
+        "default": "dark",
+        "strict": true
+    },
     "navigation": {
         "groups": [
             {
@@ -13,5 +17,10 @@
                 "openapi": "swagger.json"
             }
         ]
+    },
+    "api": {
+        "playground": {
+            "display": "none"
+        }
     }
 }
