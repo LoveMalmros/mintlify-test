@@ -16,7 +16,9 @@
                 "group": "Introduction",
                 "expanded": true,
                 "pages": [
-                    "Intro"
+                    "Intro",
+                    "Concepts",
+                    "Raw widgets"
                 ]
             },
             {
