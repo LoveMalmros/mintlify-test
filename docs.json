@@ -1,0 +1,514 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Homepal API",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "https://api.homepal.se/"
+        }
+    ],
+    "paths": {
+        "/v1/third-party/dashboards": {
+            "get": {
+                "summary": "Fetches all dashboards.",
+                "tags": [
+                    "Dashboards"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "company_group_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "example": "06bec939-772d-4a0a-abcc-8a15145a39a9",
+                        "description": "Fetches all dashboards that the company group can view through a third party."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All the company groups dashboards",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "dashboards": {
+                                                    "$ref": "#/components/schemas/Dashboards"
+                                                },
+                                                "links_expire_in": {
+                                                    "type": "number",
+                                                    "example": 3600
+                                                },
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/Meta"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/api-access/widgets/{id}/raw": {
+            "get": {
+                "summary": "Fetches one raw API-access widget.",
+                "tags": [
+                    "Widgets"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true,
+                        "description": "The ID of the widget."
+                    },
+                    {
+                        "in": "query",
+                        "name": "companies",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
+                        "example": "Fastiget AB",
+                        "description": "A comma separted list of company names to filter the data by. If not set, data from all companies the company group has access to will be shown."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The raw widget payload.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Widget"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-KEY"
+            },
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "TimePeriod": {
+                "type": "object",
+                "properties": {
+                    "from_date": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "2024-01-01"
+                    },
+                    "to_date": {
+                        "type": "string",
+                        "nullable": true,
+                        "example": "2024-12-31"
+                    }
+                },
+                "description": "The time period of the metric. If to_date is null then it's is not a period, but an exact date."
+            },
+            "DataRow": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "index": {
+                        "type": "integer"
+                    },
+                    "data_type": {
+                        "type": "string",
+                        "enum": [
+                            "string",
+                            "number"
+                        ],
+                        "description": "The type of data array."
+                    },
+                    "data": {
+                        "oneOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "number",
+                                    "nullable": true
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "nullable": true
+                                }
+                            }
+                        ]
+                    },
+                    "unit": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "comparative_display_type": {
+                        "type": "string",
+                        "enum": [
+                            "PERCENTAGE",
+                            "VALUE"
+                        ],
+                        "nullable": true
+                    },
+                    "comparative_data": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                            "type": "number",
+                            "nullable": true
+                        }
+                    }
+                }
+            },
+            "Widget": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "status": {
+                        "type": "object",
+                        "properties": {
+                            "broken": {
+                                "type": "boolean",
+                                "example": false,
+                                "description": "widget is broken and wont return any data."
+                            }
+                        }
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataRow"
+                        },
+                        "example": [
+                            {
+                                "title": "Fastighet",
+                                "index": 0,
+                                "data_type": "string",
+                                "data": [
+                                    "Fastighet 1",
+                                    "Fastighet 2",
+                                    "Fastighet 3"
+                                ],
+                                "unit": null,
+                                "comparative_display_type": null,
+                                "comparative_data": null
+                            },
+                            {
+                                "title": "Inrapporterade ärenden",
+                                "index": 1,
+                                "data_type": "number",
+                                "data": [
+                                    4352,
+                                    4123,
+                                    3921
+                                ],
+                                "unit": null,
+                                "comparative_display_type": null,
+                                "comparative_data": null
+                            }
+                        ]
+                    },
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "comparative_filter": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TimePeriod"
+                                    }
+                                ],
+                                "nullable": true,
+                                "example": null,
+                                "description": "The time period of the comparative data"
+                            },
+                            "period_filter": {
+                                "$ref": "#/components/schemas/TimePeriod"
+                            },
+                            "subtitle": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "title": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "Ärenden per fastighet"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "KEY_FIGURE",
+                                    "BAR_CHART",
+                                    "BUBBLE_CHART",
+                                    "LINE_CHART",
+                                    "LIST",
+                                    "MAP",
+                                    "COMBO_CHART",
+                                    "PIE_CHART"
+                                ],
+                                "example": "BAR_CHART",
+                                "description": "The type of widget."
+                            }
+                        }
+                    }
+                }
+            },
+            "Dashboards": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "example": "01fe4ce4-3057-46eb-8355-5ebebbe8c263"
+                        },
+                        "folder": {
+                            "type": "string",
+                            "example": "Uthyrning",
+                            "nullable": true
+                        },
+                        "title": {
+                            "type": "string",
+                            "example": "Vakanser"
+                        },
+                        "tab": {
+                            "type": "string",
+                            "example": "Alla"
+                        },
+                        "url": {
+                            "type": "string",
+                            "example": "http://localhost:3000/api-access/dashboards/01fe4ce4-3057-46eb-8355-5ebebbe8c263?token=eyJh...Avs",
+                            "description": "The url to use in the iframe."
+                        },
+                        "preview_widgets": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Antal hyresavtal"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "example": "http://localhost:3000/api-access/widgets/166694b3-c31c-4fbf-89dd-d4ecb49a4a4d?token=eyJh...Avs"
+                                    }
+                                }
+                            },
+                            "description": "Widgets that can be fetched on their own as previews."
+                        },
+                        "custom_fields": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "field_name": {
+                                        "type": "string",
+                                        "example": "section_title"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "example": "Hyresdata"
+                                    }
+                                }
+                            },
+                            "description": "A list of custom fields that have been added to the dashboard."
+                        }
+                    }
+                }
+            },
+            "Meta": {
+                "type": "object",
+                "properties": {
+                    "available_query_params": {
+                        "type": "object",
+                        "properties": {
+                            "filter": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "boolean"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "false"
+                                    }
+                                }
+                            },
+                            "export": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "boolean"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "false"
+                                    }
+                                }
+                            },
+                            "responsive_mode": {
+                                "description": "Sets the type of responsive mode. mobile to switch to mobile view on small screens, desktop to constantly use desktop view.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "desktop",
+                                            "mobile"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "desktop"
+                                    }
+                                }
+                            },
+                            "mobile_breakpoint": {
+                                "description": "Specifies at what value (expressed in px) responsive mode should take effect. Requires responsive_mode to be set to mobile.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "number"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "768"
+                                    }
+                                }
+                            },
+                            "hide_footer": {
+                                "description": "Determines whether the dashboard footer is hidden. If set to true, the footer will not be displayed. This can be used to simplify the layout or improve usability in certain scenarios.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "default": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                }
+                            },
+                            "font_family": {
+                                "description": "Specifies the font family to be used in the dashboard.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Source Sans 3",
+                                            "UnitOTRB"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "Source Sans 3"
+                                    }
+                                }
+                            },
+                            "companies": {
+                                "description": "A comma separted list of company names to filter the data by. If not set, data from all companies the company group has access to will be shown.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Company 1",
+                                            "Company 2"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": null
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ]
+}
