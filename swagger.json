@@ -349,7 +349,7 @@
                                         "properties": {
                                             "url": {
                                                 "type": "string",
-                                                "example": "http://localhost:3000/api-access/widgets/${widget.id}/raw",
+                                                "example": "http://localhost:3000/api-access/widgets/166694b3-c31c-4fbf-89dd-d4ecb49a",
                                             },
                                             "headers": {
                                                 "type": "object",
@@ -362,159 +362,159 @@
                                             }
                                         }
                                     }
-                                },
-                                "description": "Widgets that can be fetched on their own as previews."
+                                }
                             },
-                            "custom_fields": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "field_name": {
-                                            "type": "string",
-                                            "example": "section_title"
-                                        },
-                                        "value": {
-                                            "type": "string",
-                                            "example": "Hyresdata"
-                                        }
+                            "description": "Widgets that can be fetched on their own as previews."
+                        },
+                        "custom_fields": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "field_name": {
+                                        "type": "string",
+                                        "example": "section_title"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "example": "Hyresdata"
                                     }
-                                },
-                                "description": "A list of custom fields that have been added to the dashboard."
-                            }
+                                }
+                            },
+                            "description": "A list of custom fields that have been added to the dashboard."
                         }
                     }
-                },
-                "Meta": {
-                    "type": "object",
-                    "properties": {
-                        "available_query_params": {
-                            "type": "object",
-                            "properties": {
-                                "filter": {
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "boolean"
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": "false"
-                                        }
+                }
+            },
+            "Meta": {
+                "type": "object",
+                "properties": {
+                    "available_query_params": {
+                        "type": "object",
+                        "properties": {
+                            "filter": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "boolean"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "false"
                                     }
-                                },
-                                "export": {
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "boolean"
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": "false"
-                                        }
+                                }
+                            },
+                            "export": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "boolean"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "false"
                                     }
-                                },
-                                "responsive_mode": {
-                                    "description": "Sets the type of responsive mode. mobile to switch to mobile view on small screens, desktop to constantly use desktop view.",
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "enum"
+                                }
+                            },
+                            "responsive_mode": {
+                                "description": "Sets the type of responsive mode. mobile to switch to mobile view on small screens, desktop to constantly use desktop view.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
                                         },
-                                        "enum": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "desktop",
-                                                "mobile"
-                                            ]
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": "desktop"
-                                        }
+                                        "example": [
+                                            "desktop",
+                                            "mobile"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "desktop"
                                     }
-                                },
-                                "mobile_breakpoint": {
-                                    "description": "Specifies at what value (expressed in px) responsive mode should take effect. Requires responsive_mode to be set to mobile.",
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "number"
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": "768"
-                                        }
+                                }
+                            },
+                            "mobile_breakpoint": {
+                                "description": "Specifies at what value (expressed in px) responsive mode should take effect. Requires responsive_mode to be set to mobile.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "number"
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "768"
                                     }
-                                },
-                                "hide_footer": {
-                                    "description": "Determines whether the dashboard footer is hidden. If set to true, the footer will not be displayed. This can be used to simplify the layout or improve usability in certain scenarios.",
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "default": {
-                                            "type": "boolean",
-                                            "example": false
-                                        }
+                                }
+                            },
+                            "hide_footer": {
+                                "description": "Determines whether the dashboard footer is hidden. If set to true, the footer will not be displayed. This can be used to simplify the layout or improve usability in certain scenarios.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "default": {
+                                        "type": "boolean",
+                                        "example": false
                                     }
-                                },
-                                "font_family": {
-                                    "description": "Specifies the font family to be used in the dashboard.",
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "enum"
+                                }
+                            },
+                            "font_family": {
+                                "description": "Specifies the font family to be used in the dashboard.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
                                         },
-                                        "enum": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "Source Sans 3",
-                                                "UnitOTRB"
-                                            ]
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": "Source Sans 3"
-                                        }
+                                        "example": [
+                                            "Source Sans 3",
+                                            "UnitOTRB"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": "Source Sans 3"
                                     }
-                                },
-                                "companies": {
-                                    "description": "A comma separted list of company names to filter the data by. If not set, data from all companies the company group has access to will be shown.",
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "example": "enum"
+                                }
+                            },
+                            "companies": {
+                                "description": "A comma separted list of company names to filter the data by. If not set, data from all companies the company group has access to will be shown.",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "enum"
+                                    },
+                                    "enum": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
                                         },
-                                        "enum": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "Company 1",
-                                                "Company 2"
-                                            ]
-                                        },
-                                        "default": {
-                                            "type": "string",
-                                            "example": null
-                                        }
+                                        "example": [
+                                            "Company 1",
+                                            "Company 2"
+                                        ]
+                                    },
+                                    "default": {
+                                        "type": "string",
+                                        "example": null
                                     }
                                 }
                             }
@@ -522,10 +522,11 @@
                     }
                 }
             }
-        },
-        "security": [
-            {
-                "ApiKeyAuth": []
-            }
-        ]
-    }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ]
+}
