@@ -6,6 +6,10 @@
     "colors": {
         "primary": "#f0fdf4"
     },
+    "logo": {
+        "dark": "logo.svg",
+        "light": "logo.svg"
+    },
     "appearance": {
         "default": "dark",
         "strict": true
