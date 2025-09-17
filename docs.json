@@ -10,6 +10,10 @@
         "dark": "icon.svg",
         "light": "icon.svg"
     },
+    "favicon": {
+        "dark": "favicon.ico",
+        "light": "favicon.ico"
+    },
     "appearance": {
         "default": "dark",
         "strict": true
