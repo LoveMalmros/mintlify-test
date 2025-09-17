@@ -11,3 +11,6 @@ that you can insert into an iframe in the page you are fetching from.
 From the /third-party/dashboards you also get the following field `meta.available_query_params`. These are the 
 query params that you can use to send into the embedded dashboards. For an example ?filter=true adds a filter to
 the embedded page.
+
+## Preview widgets
+Some dashboards will have widgets that you can embedd separately. These also
