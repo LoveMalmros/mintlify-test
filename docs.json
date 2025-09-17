@@ -1,10 +1,10 @@
 {
     "$schema": "https://mintlify.com/schema.json",
     "name": "Homepal",
+    "description": "Beskrivning",
     "theme": "mint",
     "colors": {
-        "primary": "#f0fdf4",
-        "secondary": "#bbf7d0"
+        "primary": "#f0fdf4"
     },
     "navigation": {
         "groups": [
