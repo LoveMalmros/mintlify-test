@@ -14,7 +14,7 @@ Since the widgets can have multiple settings the results from the widgets can va
 Here we cover some of the cases, that you should take into consideration.
 
 ### Status
-If `status.broken`=true. Then data will return null.
+If `status.broken=true`. Then data will return null.
 
 ### The data response
 The data response is returned in a list in the field `data`. This consists of items which have labels or data.
@@ -49,6 +49,6 @@ values in `comparative_data` is the actual values from the comparative period or
 
 ### meta.type
 This field says what type of widget is being returned. When `type` = KEY_FIGURE, then the response will vary 
-slightly. This response will only return one item in the `data`-field and in the `data[0].data`.field. This
+slightly. This response will only return one item in the `data`-field and in the `data[0].data`-field. This
 is the case when the widget is only showing a single value and in turn that value can be reached in `data[0].data[0]`.
 All other types return the response in the same way.

@@ -13,9 +13,6 @@
         "/v1/third-party/dashboards": {
             "get": {
                 "summary": "Fetches all dashboards.",
-                "tags": [
-                    "Dashboards"
-                ],
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -67,9 +64,6 @@
         "/v1/api-access/widgets/{id}/raw": {
             "get": {
                 "summary": "Fetches one raw API-access widget.",
-                "tags": [
-                    "Widgets"
-                ],
                 "security": [
                     {
                         "BearerAuth": []
