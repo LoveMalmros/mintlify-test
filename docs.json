@@ -1,14 +1,14 @@
 {
     "$schema": "https://mintlify.com/schema.json",
     "name": "Homepal",
-    "description": "Beskrivning",
+    "description": "API-documentation for Homepal third-party applications",
     "theme": "mint",
     "colors": {
         "primary": "#f0fdf4"
     },
     "logo": {
-        "dark": "logo.svg",
-        "light": "logo.svg"
+        "dark": "icon.svg",
+        "light": "icon.svg"
     },
     "appearance": {
         "default": "dark",
