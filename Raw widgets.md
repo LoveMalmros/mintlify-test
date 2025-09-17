@@ -2,12 +2,15 @@ Preview widget don't have to be rendered in an `<iframe />`. From the `preview_w
 fetch the widgets "raw" response. This means that you get a JSON-response that you can render 
 in the way you prefer in your App. 
 
+---
+
 ## How?
 After fetching from the /third-party/dashboards endpoint you can get a url that is
 for fetching a widgets "raw" data.
 You get the url in `preview_widgets.raw.url` and then you need to authorize yourself with the headers from
-`preview_widgets.raw.headers`. [API-reference](/api-reference/fetches-one-raw-api-access-widget)
+`preview_widgets.raw.headers`, [API-reference](/api-reference/fetches-one-raw-api-access-widget).
 
+---
 
 ## Widget Data Responses
 
