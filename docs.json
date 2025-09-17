@@ -11,10 +11,14 @@
         "strict": true
     },
     "navigation": {
-        "pages": [
-            "Intro"
-        ],
         "groups": [
+            {
+                "group": "Introduction",
+                "expanded": true,
+                "pages": [
+                    "Intro"
+                ]
+            },
             {
                 "group": "API Reference",
                 "openapi": "swagger.json"
